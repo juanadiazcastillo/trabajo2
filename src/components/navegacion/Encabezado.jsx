@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Container, Nav, Navbar, Offcanvas } from "react-bootstrap";
-import logo from "../../assets/ave.jpeg";
+import logo from "../../assets/juana.webp";
 import { supabase } from "../../database/supabaseconfig";
 
 const Encabezado = () => {
@@ -90,6 +90,22 @@ const Encabezado = () => {
             <strong>Productos</strong>
           </Nav.Link>
 
+          <Nav.Link
+            onClick={() => manejarNavegacion("/empleados")}
+            className={mostrarMenu ? "color-texto-marca" : "text-white"}
+          >
+            {mostrarMenu ? <i className="bi-people-fill me-2"></i> : null}
+            <strong>Empleados</strong>
+          </Nav.Link>
+
+          <Nav.Link
+            onClick={() => manejarNavegacion("/clientes")}
+            className={mostrarMenu ? "color-texto-marca" : "text-white"}
+          >
+            {mostrarMenu ? <i className="bi-person-badge-fill me-2"></i> : null}
+            <strong>Clientes</strong>
+          </Nav.Link>
+
           {/* Opción para ir al catálogo público desde admin */}
           <Nav.Link
             onClick={() => manejarNavegacion("/catalogo")}
@@ -150,7 +166,7 @@ const Encabezado = () => {
             className="d-inline-block me-2"
           />
           <strong>
-            <h4 className="mb-0">Discosa</h4>
+            <h4 className="mb-0">Juana Dias</h4>
           </strong>
         </Navbar.Brand>
 

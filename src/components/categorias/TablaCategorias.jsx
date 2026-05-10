@@ -66,4 +66,4 @@ const TablaCategorias = ({
   );
 };
 
-export default TablaCategorias;
+export default TablaCategorias; 

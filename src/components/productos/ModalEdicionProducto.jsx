@@ -40,7 +40,7 @@ const ModalEdicionProducto = ({
             <Form.Control
               type="text"
               name="nombre_producto"
-              value={productoEditar.nombre_producto || ""}
+              value={productoEditar.nombre_producto}
               onChange={manejarCambioInputEdicion}
               placeholder="Ingresa el nombre del producto"
             />
@@ -51,7 +51,7 @@ const ModalEdicionProducto = ({
               as="textarea"
               rows={3}
               name="descripcion_producto"
-              value={productoEditar.descripcion_producto || ""}
+              value={productoEditar.descripcion_producto}
               onChange={manejarCambioInputEdicion}
               placeholder="Ingresa la descripción"
             />
@@ -60,7 +60,7 @@ const ModalEdicionProducto = ({
             <Form.Label>Categoría</Form.Label>
             <Form.Select
               name="categoria_producto"
-              value={productoEditar.categoria_producto || ""}
+              value={productoEditar.categoria_producto}
               onChange={manejarCambioInputEdicion}
             >
               <option value="">Seleccione una categoría</option>
@@ -72,15 +72,15 @@ const ModalEdicionProducto = ({
             </Form.Select>
           </Form.Group>
           <Form.Group className="mb-3">
-            <Form.Label>Precio de venta</Form.Label>
+            <Form.Label>Precio</Form.Label>
             <Form.Control
               type="number"
               step="0.01"
               min="0"
               name="precio_venta"
-              value={productoEditar.precio_venta || ""}
+              value={productoEditar.precio_venta}
               onChange={manejarCambioInputEdicion}
-              placeholder="Ingresa el precio de venta"
+              placeholder="Ingresa el precio"
             />
           </Form.Group>
           <Form.Group className="mb-3">
@@ -97,7 +97,7 @@ const ModalEdicionProducto = ({
             <Form.Control
               type="text"
               name="url_imagen"
-              value={productoEditar.url_imagen || ""}
+              value={productoEditar.url_imagen}
               onChange={manejarCambioInputEdicion}
               placeholder="Ingresa URL o selecciona un archivo"
             />

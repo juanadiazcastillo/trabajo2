@@ -5,13 +5,17 @@ import NotificacionOperacion from '../components/NotificacionOperacion';
 import ModalRegistroProducto from '../components/productos/ModalRegistroProducto';
 import ModalEdicionProducto from '../components/productos/ModalEdicionProducto';
 import ModalEliminacionProducto from '../components/productos/ModalEliminacionProducto';
+import ModalQRProducto from '../components/productos/ModalQRProducto';
 
 import TarjetasProductos from '../components/productos/TarjetasProductos';
 import TablaProductos from '../components/productos/TablaProductos';  
 import CuadroBusquedas from "../components/busquedas/CuadroBusquedas";
 import Paginacion from "../components/ordenamiento/Paginacion";
 
+import { useAuth } from "../context/AuthContext";
+
 const Productos = () => {
+    const { tienePermiso } = useAuth();
     // --- ESTADOS DE DATOS ---
     const [productos, setProductos] = useState([]);
     const [categorias, setCategorias] = useState([]);
@@ -25,6 +29,8 @@ const Productos = () => {
     const [mostrarModalDescuento, setMostrarModalDescuento] = useState(false);
     const [productoAEliminar, setProductoAEliminar] = useState(null);
     const [productoSeleccionadoDescuento, setProductoSeleccionadoDescuento] = useState(null);
+    const [mostrarModalQR, setMostrarModalQR] = useState(false);
+    const [productoQR, setProductoQR] = useState(null);
     const [productoEditar, setProductoEditar] = useState({
         id_producto: "",
         nombre_producto: "",
@@ -196,6 +202,20 @@ const Productos = () => {
         }
     };
 
+    const generarQRImagen = (producto) => {
+  if (!producto?.url_imagen) {
+    setToast({
+      mostrar: true,
+      mensaje: "Este producto no tiene imagen asociada",
+      tipo: "advertencia"
+    });
+    return;
+  }
+
+  setProductoQR(producto);
+  setMostrarModalQR(true);
+};
+
     // ================== EFECTOS Y FILTROS ==================
     useEffect(() => {
         cargarProductos();
@@ -233,9 +253,11 @@ const Productos = () => {
                     <h3><i className="bi bi-box-seam me-2"></i> Gestión de Productos</h3>
                 </Col>
                 <Col xs={3} className="text-end">
-                    <Button onClick={() => setMostrarModalRegistro(true)}>
-                        <i className="bi bi-plus-lg"></i> <span className="d-none d-sm-inline ms-2">Nuevo</span>
-                    </Button>
+                    {tienePermiso('crear_productos') && (
+                        <Button onClick={() => setMostrarModalRegistro(true)}>
+                            <i className="bi bi-plus-lg"></i> <span className="d-none d-sm-inline ms-2">Nuevo</span>
+                        </Button>
+                    )}
                 </Col>
             </Row>
             <hr />
@@ -272,7 +294,11 @@ const Productos = () => {
                 producto={productoAEliminar}
             />
 
-            
+            <ModalQRProducto
+  mostrar={mostrarModalQR}
+  onHide={() => setMostrarModalQR(false)}
+  producto={productoQR}
+/>
 
             <NotificacionOperacion
                 mostrar={toast.mostrar}
@@ -288,9 +314,12 @@ const Productos = () => {
                     <div className="d-lg-none">
                         <TarjetasProductos 
                             productos={productosPaginados} 
+                            categorias={categorias}
                             abrirModalEdicion={abrirModalEdicion} 
                             abrirModalEliminacion={(p) => { setProductoAEliminar(p); setMostrarModalEliminacion(true); }}
                             abrirModalDescuento={(p) => { setProductoSeleccionadoDescuento(p); setMostrarModalDescuento(true); }}
+                            generarQRImagen={generarQRImagen}
+                            //copiarProducto={copiarProducto}
                         />
                     </div>
                     <div className="d-none d-lg-block">
@@ -299,6 +328,9 @@ const Productos = () => {
                             abrirModalEdicion={abrirModalEdicion} 
                             abrirModalEliminacion={(p) => { setProductoAEliminar(p); setMostrarModalEliminacion(true); }}
                             abrirModalDescuento={(p) => { setProductoSeleccionadoDescuento(p); setMostrarModalDescuento(true); }}
+                            generarQRImagen={generarQRImagen}
+                            //copiarProducto={copiarProducto}
+                            
                         />
                     </div>
                 </>

@@ -206,7 +206,7 @@ const Encabezado = () => {
             className="d-inline-block me-2"
           />
           <strong>
-            <h4 className="mb-0">Juana la cubana</h4>
+            <h4 className="mb-0">Juana</h4>
           </strong>
         </Navbar.Brand>
 
